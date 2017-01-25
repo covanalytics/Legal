@@ -177,8 +177,12 @@ write.csv(PoliceCFS_230A, "O:/AllUsers/CovStat/Data Portal/Repository/Data/Legal
 write.csv(PoliceCFS_230A, "U:/CityWide Performance/CovStat/CovStat Projects/Legal/Tableau Files/230AM_PermitHolders.csv")
 
 #### Write to SQLite
+library("RSQLite")
 
-dbWriteTable(cons.police, "230AM Permit Holders", PoliceCFS_230A, overwrite = TRUE)
+#### connect to db
+cons.police <- dbConnect(drv=RSQLite::SQLite(), dbname="O:/AllUsers/CovStat/Data Portal/repository/Data/Database Files/Police.db")
+
+dbWriteTable(cons.police, "Two30AMPermitHolders", PoliceCFS_230A, overwrite = TRUE)
 
 dbDisconnect(cons.police)
 
